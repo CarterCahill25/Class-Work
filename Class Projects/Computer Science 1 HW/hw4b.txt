@@ -1,0 +1,58 @@
+#Carter Cahill
+#A02
+#00962727
+
+def parse(s):
+    s = s + " " #add a space to the end of the string
+    s = s.lower() #lowercase all letters in string
+    s = [s] #make s a list
+    index = 0
+    word = ""
+    processing = False
+    newList = []
+    while index < len(s[0]):
+        S = (s[0][index])
+        if "a" <= S <= "z":
+            processing = True
+            word = word + str(s[0][index])
+        else:
+            if processing:
+                if len(word) >= 4:
+                    Word = [(word)]
+                    newList = newList + (Word)
+                    processing = False
+                word = ""
+        index = index + 1
+    return(newList)
+                
+            
+        
+
+def computeWordFrequencies(filename):
+    f = open(filename)
+    line = f.readline()
+    lineW = []
+    listWords = []
+    finalWords = []
+    WordCounter = []
+    index = 0
+    while line != "":
+        lineW = parse(line)
+        listWords.extend(lineW)
+        line = f.readline()
+    listWords = sorted(listWords)
+    while index < len(listWords):
+        index2 = 0
+        word = listWords[index]
+        if not (listWords[index] in finalWords):
+            finalWords.append(word)
+            counter = 0
+            while index2 < len(listWords):
+                if word == listWords[index2]:
+                    counter = counter + 1
+                index2 = index2 + 1
+            WordCounter.append(counter)
+        index = index + 1
+    return(finalWords, WordCounter)  
+    
+   
